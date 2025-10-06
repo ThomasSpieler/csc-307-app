@@ -10,8 +10,10 @@ function MyApp() {
     postUser(person)
       .then((response) => {
         if (response.status == 201) {
-          const newUser = response.json();
-          setCharacters([...characters, newUser])
+          response.json().then( newUser => {
+            setCharacters([...characters, newUser])
+            console.log(characters)
+          });
         }
       })
       .catch((error) => {
@@ -21,8 +23,6 @@ function MyApp() {
   
   function removeOneCharacter(index) {
     const person = characters[index];
-    console.log(person)
-    console.log(person.id)
     const promise = fetch(`Http://localhost:8000/users/${person.id}`, {
       method: "DELETE",
       headers: {
