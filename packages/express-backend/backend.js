@@ -57,6 +57,8 @@ const findUserByNameAndJob = (name, job) => {
 const findUserById = (id) =>
   users["users_list"].find((user) => user["id"] === id);
 
+const generateId = () => {return Math.random().toString(36)}
+
 const addUser = (user) => {
   users["users_list"].push(user);
   return user;
@@ -104,8 +106,12 @@ app.get("/users/:id", (req, res) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  console.log(userToAdd)
+  if (req.body.id === undefined) {
+    userToAdd.id = generateId();
+  }
   addUser(userToAdd);
-  res.send(201);
+  res.status(201).send();
 });
 
 const deleteUser = (user) => {
