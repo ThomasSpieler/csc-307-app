@@ -81,6 +81,29 @@ app.post("/users", (req, res) => {
   res.send();
 });
 
+const deleteUser = (user) => {
+  const index = users["users_list"].indexOf(user);
+  if (index != -1) 
+    return users["users_list"].splice(index, 1)[0];
+}
+
+app.delete("/users/:id", (req, res) => {
+  const id = req.params.id;
+  const user = findUserById(id);
+
+  if (user == undefined) {
+    res.status(404).send("Resource not found.");
+  }
+
+  let result = deleteUser(user);
+  
+  if (result === undefined) {
+    res.status(404).send("Resource not found.");
+  } else {
+    res.send(result);
+  }
+});
+
 app.listen(port, () => {
   console.log(
     `Example app listening at http://localhost:${port}`
