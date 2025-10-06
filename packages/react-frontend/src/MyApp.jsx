@@ -10,7 +10,8 @@ function MyApp() {
     postUser(person)
       .then((response) => {
         if (response.status == 201) {
-          setCharacters([...characters, person])
+          const newUser = response.json();
+          setCharacters([...characters, newUser])
         }
       })
       .catch((error) => {
@@ -19,10 +20,27 @@ function MyApp() {
   }
   
   function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
+    const person = characters[index];
+    console.log(person)
+    console.log(person.id)
+    const promise = fetch(`Http://localhost:8000/users/${person.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(person),
     });
-    setCharacters(updated);
+
+    return promise.then( response => {
+      if (response.status == 204) {
+        const updated = characters.filter((character, i) => {
+          return i !== index;
+        });
+        setCharacters(updated);
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   function fetchUsers() {
