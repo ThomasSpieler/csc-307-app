@@ -64,11 +64,11 @@ const port = 8000;
 //   users["users_list"].push(user);
 //   return user;
 // };
-// app.use(cors());
-// app.use(express.json());
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-// });
+ app.use(cors());
+ app.use(express.json());
+ app.get("/", (req, res) => {
+   res.send("Hello World!");
+ });
 
 app.get("/users", (req, res) => {
   const name = req.query.name;
