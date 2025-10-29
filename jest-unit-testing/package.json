@@ -1,7 +1,6 @@
 {
   "name": "jest-unit-testing",
   "version": "1.0.0",
-  "description": "",
   "main": "module.js",
   "type": "module",
   "scripts": {
@@ -11,5 +10,12 @@
     "transform": {}
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^30.2.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  },
+  "description": ""
 }
